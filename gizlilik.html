@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gizlilik Politikası - LGS English 8</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Noto+Sans:wght@300;400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "primary-hover": "#0e4bca",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(16, 22, 34, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark text-white font-display">
+    <div class="min-h-screen flex flex-col">
+        <!-- Navigation -->
+        <div class="sticky top-0 z-50 w-full glass-panel border-b border-white/10">
+            <div class="max-w-[1280px] mx-auto px-4 md:px-10 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="size-8 rounded-lg bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white shadow-lg shadow-primary/30">
+                        <span class="material-symbols-outlined text-[20px]">school</span>
+                    </div>
+                    <h1 class="text-xl font-bold tracking-tight text-white">LGS English <span
+                            class="text-primary">8</span></h1>
+                </div>
+                <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">← Ana
+                    Sayfa</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <main class="flex-1 max-w-[1280px] mx-auto w-full px-4 md:px-10 py-10">
+            <div class="max-w-3xl mx-auto">
+                <h1 class="text-4xl font-bold mb-8">Gizlilik Politikası</h1>
+
+                <div class="space-y-6 text-gray-300 leading-relaxed">
+                    <section>
+                        <h2 class="text-2xl font-bold text-white mb-4">1. Genel Bilgiler</h2>
+                        <p>LGS English 8 platformu, kullanıcılarının gizliliğine saygı duyar ve kişisel verilerinizi
+                            korumak için gerekli önlemleri alır.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-white mb-4">2. Toplanan Bilgiler</h2>
+                        <p>Platformumuz, eğitim amaçlı kullanılmaktadır ve herhangi bir kişisel veri toplamaz. Oyun
+                            skorları ve ilerleme bilgileri yalnızca tarayıcınızda (localStorage) saklanır.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-white mb-4">3. Çerezler (Cookies)</h2>
+                        <p>Sitemiz, kullanıcı deneyimini iyileştirmek için temel çerezler kullanır. Bu çerezler, oturum
+                            bilgilerinizi saklamak için kullanılır.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-white mb-4">4. Üçüncü Taraf Hizmetler</h2>
+                        <p>Platformumuz, Google Fonts ve Tailwind CSS gibi üçüncü taraf hizmetleri kullanmaktadır. Bu
+                            hizmetlerin kendi gizlilik politikaları geçerlidir.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-white mb-4">5. Veri Güvenliği</h2>
+                        <p>Tüm verileriniz güvenli bir şekilde saklanır ve üçüncü taraflarla paylaşılmaz.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-2xl font-bold text-white mb-4">6. İletişim</h2>
+                        <p>Gizlilik politikamız hakkında sorularınız için: <a href="mailto:ardadayi47@gmail.com"
+                                class="text-primary hover:underline">ardadayi47@gmail.com</a></p>
+                    </section>
+
+                    <p class="text-sm text-gray-500 mt-8">Son güncelleme: Aralık 2024</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-auto border-t border-white/10 bg-[#0d121c]/80 backdrop-blur-md py-10">
+            <div
+                class="max-w-[1280px] mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">school</span>
+                        <span class="text-lg font-bold text-white">LGS English 8</span>
+                    </div>
+                    <p class="text-sm text-gray-500">© 2025 Tüm hakları saklıdır.</p>
+                </div>
+                <div class="flex gap-8">
+                    <a class="text-sm text-gray-500 hover:text-white transition-colors"
+                        href="gizlilik.html">Gizlilik</a>
+                    <a class="text-sm text-gray-500 hover:text-white transition-colors"
+                        href="kurallar.html">Kurallar</a>
+                    <a class="text-sm text-gray-500 hover:text-white transition-colors"
+                        href="iletisim.html">İletişim</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

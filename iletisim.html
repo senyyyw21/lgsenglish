@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>İletişim - LGS English 8</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Noto+Sans:wght@300;400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "primary-hover": "#0e4bca",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(16, 22, 34, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark text-white font-display">
+    <div class="min-h-screen flex flex-col">
+        <!-- Navigation -->
+        <div class="sticky top-0 z-50 w-full glass-panel border-b border-white/10">
+            <div class="max-w-[1280px] mx-auto px-4 md:px-10 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="size-8 rounded-lg bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white shadow-lg shadow-primary/30">
+                        <span class="material-symbols-outlined text-[20px]">school</span>
+                    </div>
+                    <h1 class="text-xl font-bold tracking-tight text-white">LGS English <span
+                            class="text-primary">8</span></h1>
+                </div>
+                <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">← Ana
+                    Sayfa</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <main class="flex-1 max-w-[1280px] mx-auto w-full px-4 md:px-10 py-10">
+            <div class="max-w-3xl mx-auto">
+                <h1 class="text-4xl font-bold mb-8 text-center">İletişim</h1>
+
+                <div class="glass-card p-8 rounded-2xl mb-8">
+                    <div class="flex flex-col items-center gap-6 text-center">
+                        <div class="size-20 rounded-full bg-primary/20 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-5xl text-primary">mail</span>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white mb-2">Bize Ulaşın</h2>
+                            <p class="text-gray-400">Sorularınız, önerileriniz veya geri bildirimleriniz için bizimle
+                                iletişime geçebilirsiniz.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Email Card -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="size-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-2xl text-primary">email</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">E-posta</h3>
+                                <a href="mailto:ardadayi47@gmail.com"
+                                    class="text-primary hover:underline break-all">ardadayi47@gmail.com</a>
+                                <p class="text-sm text-gray-400 mt-2">7/24 e-posta desteği</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Response Time Card -->
+                    <div class="glass-card p-6 rounded-xl">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="size-12 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-2xl text-green-400">schedule</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Yanıt Süresi</h3>
+                                <p class="text-gray-300">24-48 saat içinde</p>
+                                <p class="text-sm text-gray-400 mt-2">En kısa sürede dönüş yapıyoruz</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Topics -->
+                <div class="mt-8 glass-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-white mb-4">Hangi Konularda Yardımcı Olabiliriz?</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            <span>Teknik sorunlar ve hatalar</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            <span>Oyun ve içerik önerileri</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            <span>Platform kullanımı hakkında sorular</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            <span>Geri bildirim ve şikayetler</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            <span>İşbirliği teklifleri</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quick Email Button -->
+                <div class="mt-8 text-center">
+                    <a href="mailto:ardadayi47@gmail.com"
+                        class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-primary hover:bg-primary-hover text-white font-bold transition-all shadow-lg shadow-primary/25">
+                        <span class="material-symbols-outlined">send</span>
+                        E-posta Gönder
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-auto border-t border-white/10 bg-[#0d121c]/80 backdrop-blur-md py-10">
+            <div
+                class="max-w-[1280px] mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">school</span>
+                        <span class="text-lg font-bold text-white">LGS English 8</span>
+                    </div>
+                    <p class="text-sm text-gray-500">© 2025 Tüm hakları saklıdır.</p>
+                </div>
+                <div class="flex gap-8">
+                    <a class="text-sm text-gray-500 hover:text-white transition-colors"
+                        href="gizlilik.html">Gizlilik</a>
+                    <a class="text-sm text-gray-500 hover:text-white transition-colors"
+                        href="kurallar.html">Kurallar</a>
+                    <a class="text-sm text-gray-500 hover:text-white transition-colors"
+                        href="iletisim.html">İletişim</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

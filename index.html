@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>LGS English - 8. Sınıf Oyun ve Eğitim Platformu</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Noto+Sans:wght@300;400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "primary-hover": "#0e4bca",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "glass-border": "rgba(255, 255, 255, 0.08)",
+                        "glass-bg": "rgba(255, 255, 255, 0.03)",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.375rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'radial-gradient(circle at 50% 0%, rgba(19, 91, 236, 0.15), transparent 60%)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(16, 22, 34, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(19, 91, 236, 0.5);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(19, 91, 236, 0.3);
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-dark text-white font-display antialiased overflow-x-hidden relative min-h-screen flex flex-col">
+
+    <!-- Password Protection Modal -->
+    <div id="passwordModal"
+        class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md">
+        <div class="glass-card p-8 rounded-2xl max-w-md w-full mx-4 border border-white/10">
+            <div class="flex flex-col items-center gap-6">
+                <div class="size-16 rounded-full bg-primary/20 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-4xl text-primary">lock</span>
+                </div>
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold text-white mb-2">Siteye Giriş</h2>
+                    <p class="text-gray-400 text-sm">Devam etmek için şifre giriniz</p>
+                </div>
+                <div class="w-full">
+                    <input type="password" id="passwordInput" placeholder="Şifre"
+                        class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                        autocomplete="off" />
+                    <p id="errorMessage" class="text-red-400 text-sm mt-2 hidden">Yanlış şifre! Tekrar deneyin.</p>
+                </div>
+                <button onclick="checkPassword()"
+                    class="w-full py-3 rounded-lg bg-primary hover:bg-primary-hover text-white font-bold transition-all shadow-lg shadow-primary/25">
+                    Giriş Yap
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = "evGWvi";
+
+        // Check if already authenticated
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            document.getElementById('passwordModal').style.display = 'none';
+        }
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const errorMsg = document.getElementById('errorMessage');
+
+            if (input.value === correctPassword) {
+                sessionStorage.setItem('authenticated', 'true');
+                document.getElementById('passwordModal').style.display = 'none';
+                errorMsg.classList.add('hidden');
+            } else {
+                errorMsg.classList.remove('hidden');
+                input.value = '';
+                input.focus();
+                // Shake animation
+                input.classList.add('animate-pulse');
+                setTimeout(() => input.classList.remove('animate-pulse'), 500);
+            }
+        }
+
+        // Enter key support
+        document.getElementById('passwordInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieBanner"
+        class="fixed bottom-0 left-0 right-0 z-[9998] p-4 transform translate-y-full transition-transform duration-500"
+        style="display: none;">
+        <div class="max-w-6xl mx-auto glass-card rounded-2xl p-6 border border-white/10 shadow-2xl">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div class="flex items-start gap-4 flex-1">
+                    <div class="size-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <span class="material-symbols-outlined text-2xl text-primary">cookie</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">🍪 Çerez Kullanımı</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Sitemiz, deneyiminizi iyileştirmek için çerezler kullanmaktadır.
+                            Çerezleri kabul ederek sitemizi daha iyi kullanabilirsiniz.
+                            <a href="gizlilik.html" class="text-primary hover:underline">Gizlilik Politikası</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-3 w-full md:w-auto">
+                    <button onclick="acceptCookies()"
+                        class="flex-1 md:flex-none px-6 py-2.5 rounded-lg bg-primary hover:bg-primary-hover text-white font-bold transition-all shadow-lg shadow-primary/25">
+                        Kabul Et
+                    </button>
+                    <button onclick="rejectCookies()"
+                        class="flex-1 md:flex-none px-6 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all">
+                        Reddet
+                    </button>
+                    <button onclick="showCookieSettings()"
+                        class="flex-1 md:flex-none px-6 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all">
+                        Özelleştir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieSettings"
+        class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md"
+        style="display: none;">
+        <div
+            class="glass-card p-8 rounded-2xl max-w-2xl w-full mx-4 border border-white/10 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-white">Çerez Ayarları</h2>
+                <button onclick="closeCookieSettings()" class="text-gray-400 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
+            </div>
+
+            <p class="text-gray-300 mb-6">Hangi çerezlerin kullanılacağını seçebilirsiniz:</p>
+
+            <div class="space-y-4">
+                <!-- Essential Cookies -->
+                <div class="glass-card p-4 rounded-xl border border-white/5">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">verified</span>
+                            <h3 class="font-bold text-white">Gerekli Çerezler</h3>
+                        </div>
+                        <div class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold">
+                            Zorunlu
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 ml-9">
+                        Sitenin çalışması için gerekli temel çerezler. Devre dışı bırakılamaz.
+                    </p>
+                </div>
+
+                <!-- Analytics Cookies -->
+                <div class="glass-card p-4 rounded-xl border border-white/5">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-blue-400">analytics</span>
+                            <h3 class="font-bold text-white">Analitik Çerezler</h3>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="analyticsCookies" class="sr-only peer" checked>
+                            <div
+                                class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                            </div>
+                        </label>
+                    </div>
+                    <p class="text-sm text-gray-400 ml-9">
+                        Siteyi nasıl kullandığınızı anlamamıza yardımcı olur.
+                    </p>
+                </div>
+
+                <!-- Performance Cookies -->
+                <div class="glass-card p-4 rounded-xl border border-white/5">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-purple-400">speed</span>
+                            <h3 class="font-bold text-white">Performans Çerezleri</h3>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="performanceCookies" class="sr-only peer" checked>
+                            <div
+                                class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                            </div>
+                        </label>
+                    </div>
+                    <p class="text-sm text-gray-400 ml-9">
+                        Site performansını iyileştirmek için kullanılır.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-8">
+                <button onclick="saveCustomCookies()"
+                    class="flex-1 py-3 rounded-lg bg-primary hover:bg-primary-hover text-white font-bold transition-all shadow-lg shadow-primary/25">
+                    Kaydet ve Devam Et
+                </button>
+                <button onclick="closeCookieSettings()"
+                    class="px-6 py-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all">
+                    İptal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cookie consent functions
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                setTimeout(() => {
+                    const banner = document.getElementById('cookieBanner');
+                    banner.style.display = 'block';
+                    setTimeout(() => {
+                        banner.style.transform = 'translateY(0)';
+                    }, 100);
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            localStorage.setItem('analyticsCookies', 'true');
+            localStorage.setItem('performanceCookies', 'true');
+            hideCookieBanner();
+        }
+
+        function rejectCookies() {
+            localStorage.setItem('cookieConsent', 'rejected');
+            localStorage.setItem('analyticsCookies', 'false');
+            localStorage.setItem('performanceCookies', 'false');
+            hideCookieBanner();
+        }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById('cookieBanner');
+            banner.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 500);
+        }
+
+        function showCookieSettings() {
+            document.getElementById('cookieSettings').style.display = 'flex';
+        }
+
+        function closeCookieSettings() {
+            document.getElementById('cookieSettings').style.display = 'none';
+        }
+
+        function saveCustomCookies() {
+            const analytics = document.getElementById('analyticsCookies').checked;
+            const performance = document.getElementById('performanceCookies').checked;
+
+            localStorage.setItem('cookieConsent', 'custom');
+            localStorage.setItem('analyticsCookies', analytics.toString());
+            localStorage.setItem('performanceCookies', performance.toString());
+
+            closeCookieSettings();
+            hideCookieBanner();
+        }
+
+        // Check consent on page load
+        checkCookieConsent();
+    </script>
+
+    <!-- Ambient Background Glow -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px]">
+        </div>
+    </div>
+    <!-- Navigation -->
+    <div class="sticky top-0 z-50 w-full glass-panel border-b-0 border-b-glass-border">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-10 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="size-8 rounded-lg bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white shadow-lg shadow-primary/30">
+                    <span class="material-symbols-outlined text-[20px]">school</span>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight text-white">LGS English <span class="text-primary">8</span>
+                </h1>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#">Ana Sayfa</a>
+                <a class="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                    href="games.html">Oyunlar</a>
+                <a class="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                    href="#modules">Konular</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="sm:hidden text-white">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Layout -->
+    <main class="relative z-10 flex-1 flex flex-col max-w-[1280px] mx-auto w-full px-4 md:px-10 py-6 md:py-10 gap-10">
+        <!-- Hero Section -->
+        <section class="@container">
+            <div class="relative overflow-hidden rounded-2xl glass-card p-1">
+                <div
+                    class="flex flex-col md:flex-row gap-8 bg-[#151c2b]/40 rounded-xl p-6 md:p-10 items-center relative overflow-hidden">
+                    <!-- Decorative elements inside hero -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px]"></div>
+                    <div class="flex flex-col gap-6 flex-1 relative z-10">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit">
+                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            <span class="text-xs font-bold text-primary tracking-wide uppercase">8. Sınıf
+                                İngilizce</span>
+                        </div>
+                        <div>
+                            <h2 class="text-4xl md:text-5xl font-black leading-[1.1] tracking-tight mb-4">
+                                LGS İngilizceye <br />
+                                <span
+                                    class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-primary">Hazır
+                                    mısın?</span>
+                            </h2>
+                            <p class="text-gray-400 text-base md:text-lg leading-relaxed max-w-lg">
+                                8. sınıf müfredatına uygun eğlenceli oyunlarla kelime hazineni geliştir, gramer
+                                eksiklerini tamamla ve rakiplerini geride bırak!
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <a href="games.html"
+                                class="h-12 px-8 rounded-lg bg-primary hover:bg-primary-hover text-white font-bold text-base transition-all shadow-lg shadow-primary/25 flex items-center gap-2 group">
+                                <span
+                                    class="material-symbols-outlined group-hover:translate-x-1 transition-transform">play_arrow</span>
+                                Hemen Oyna
+                            </a>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full md:w-[450px] aspect-[4/3] relative rounded-xl overflow-hidden shadow-2xl border border-white/10">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#101622] to-transparent z-10 opacity-60">
+                        </div>
+                        <img alt="Student playing educational game on laptop"
+                            class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK2gsbZ5HZ8aTzDgJyDH9RGg9xD7uL35qE_Z2bEHpQwI1Nc2_cmznHltHS38lurQ8xqoPHGT-yDeQeE-9oq50TKSJT-__BCpXF5KK0Dv7maWAXIDbKkKfqNOf3-7IlHHrihrV0yYCkkVDb-8WFPq00rceXf1wkemtB_NUH7SMJn5vrqTVxtaxN42MRTCYKxzU6XomL35BauMNVTKCgHnVl93lkuDMtWXCVM_9ED0lklcJXufU-mfX8m6JyNQoKcaVI2_iPzvgkfss" />
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Modules -->
+        <section id="modules">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-3xl">library_books</span>
+                    Öğrenme Modülleri
+                </h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Module 1 -->
+                <a class="glass-card p-5 rounded-xl flex items-center gap-4 hover:bg-white/5 group"
+                    href="unit1-friendship.html">
+                    <div
+                        class="size-14 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center border border-orange-500/20 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">handshake</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-orange-400 font-bold uppercase tracking-wider mb-0.5">Unit 1</p>
+                        <h4 class="text-lg font-bold text-white">Friendship</h4>
+                        <p class="text-xs text-gray-400 mt-1">Arkadaşlık</p>
+                    </div>
+                    <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-gray-400">arrow_forward_ios</span>
+                    </div>
+                </a>
+                <!-- Module 2 -->
+                <a class="glass-card p-5 rounded-xl flex items-center gap-4 hover:bg-white/5 group"
+                    href="unit2-teenlife.html">
+                    <div
+                        class="size-14 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center border border-pink-500/20 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">headphones</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-pink-400 font-bold uppercase tracking-wider mb-0.5">Unit 2</p>
+                        <h4 class="text-lg font-bold text-white">Teen Life</h4>
+                        <p class="text-xs text-gray-400 mt-1">Genç Hayatı</p>
+                    </div>
+                    <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-gray-400">arrow_forward_ios</span>
+                    </div>
+                </a>
+                <!-- Module 3 -->
+                <a class="glass-card p-5 rounded-xl flex items-center gap-4 hover:bg-white/5 group"
+                    href="unit3-kitchen.html">
+                    <div
+                        class="size-14 rounded-lg bg-yellow-500/20 text-yellow-400 flex items-center justify-center border border-yellow-500/20 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">restaurant</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-yellow-400 font-bold uppercase tracking-wider mb-0.5">Unit 3</p>
+                        <h4 class="text-lg font-bold text-white">In The Kitchen</h4>
+                        <p class="text-xs text-gray-400 mt-1">Mutfakta</p>
+                    </div>
+                    <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-gray-400">arrow_forward_ios</span>
+                    </div>
+                </a>
+                <!-- Module 4 -->
+                <a class="glass-card p-5 rounded-xl flex items-center gap-4 hover:bg-white/5 group"
+                    href="unit4-phone.html">
+                    <div
+                        class="size-14 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center border border-cyan-500/20 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">call</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-cyan-400 font-bold uppercase tracking-wider mb-0.5">Unit 4</p>
+                        <h4 class="text-lg font-bold text-white">On The Phone</h4>
+                        <p class="text-xs text-gray-400 mt-1">Telefonda</p>
+                    </div>
+                    <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-gray-400">arrow_forward_ios</span>
+                    </div>
+                </a>
+                <!-- Module 5 -->
+                <a class="glass-card p-5 rounded-xl flex items-center gap-4 hover:bg-white/5 group"
+                    href="unit5-internet.html">
+                    <div
+                        class="size-14 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">language</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-blue-400 font-bold uppercase tracking-wider mb-0.5">Unit 5</p>
+                        <h4 class="text-lg font-bold text-white">The Internet</h4>
+                        <p class="text-xs text-gray-400 mt-1">İnternet</p>
+                    </div>
+                    <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-gray-400">arrow_forward_ios</span>
+                    </div>
+                </a>
+                <!-- Module 6 -->
+                <a class="glass-card p-5 rounded-xl flex items-center gap-4 hover:bg-white/5 group"
+                    href="unit6-adventures.html">
+                    <div
+                        class="size-14 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center border border-green-500/20 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">explore</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-green-400 font-bold uppercase tracking-wider mb-0.5">Unit 6</p>
+                        <h4 class="text-lg font-bold text-white">Adventures</h4>
+                        <p class="text-xs text-gray-400 mt-1">Maceralar</p>
+                    </div>
+                    <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-gray-400">arrow_forward_ios</span>
+                    </div>
+                </a>
+                <!-- Module 7 -->
+                <a class="glass-card p-5 rounded-xl flex items-center gap-4 hover:bg-white/5 group"
+                    href="unit7-tourism.html">
+                    <div
+                        class="size-14 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center border border-purple-500/20 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">luggage</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-purple-400 font-bold uppercase tracking-wider mb-0.5">Unit 7</p>
+                        <h4 class="text-lg font-bold text-white">Tourism</h4>
+                        <p class="text-xs text-gray-400 mt-1">Turizm</p>
+                    </div>
+                    <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-gray-400">arrow_forward_ios</span>
+                    </div>
+                </a>
+                <!-- Module 8 -->
+                <a class="glass-card p-5 rounded-xl flex items-center gap-4 hover:bg-white/5 group"
+                    href="unit8-chores.html">
+                    <div
+                        class="size-14 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center border border-red-500/20 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">cleaning_services</span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-red-400 font-bold uppercase tracking-wider mb-0.5">Unit 8</p>
+                        <h4 class="text-lg font-bold text-white">Chores</h4>
+                        <p class="text-xs text-gray-400 mt-1">Ev İşleri</p>
+                    </div>
+                    <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-gray-400">arrow_forward_ios</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-white/10 bg-[#0d121c]/80 backdrop-blur-md py-10">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">school</span>
+                    <span class="text-lg font-bold text-white">LGS English 8</span>
+                </div>
+                <p class="text-sm text-gray-500">© 2025 Tüm hakları saklıdır.</p>
+            </div>
+            <div class="flex gap-8">
+                <a class="text-sm text-gray-500 hover:text-white transition-colors" href="gizlilik.html">Gizlilik</a>
+                <a class="text-sm text-gray-500 hover:text-white transition-colors" href="kurallar.html">Kurallar</a>
+                <a class="text-sm text-gray-500 hover:text-white transition-colors" href="iletisim.html">İletişim</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
